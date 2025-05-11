@@ -92,7 +92,7 @@ const ProtectedLayoutRouteChildren: ProtectedLayoutRouteChildren = {
 };
 
 const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
-  ProtectedLayoutRouteChildren
+  ProtectedLayoutRouteChildren,
 );
 
 interface ProtectedRouteChildren {
@@ -104,7 +104,7 @@ const ProtectedRouteChildren: ProtectedRouteChildren = {
 };
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
-  ProtectedRouteChildren
+  ProtectedRouteChildren,
 );
 
 export interface FileRoutesByFullPath {

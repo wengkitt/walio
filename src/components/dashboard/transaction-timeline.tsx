@@ -200,7 +200,7 @@ export function TransactionTimeline() {
                             "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
                             transaction.type === "income"
                               ? "bg-success/20 text-success"
-                              : "bg-destructive/20 text-destructive"
+                              : "bg-destructive/20 text-destructive",
                           )}
                         >
                           {transaction.type === "income" ? (
@@ -224,7 +224,7 @@ export function TransactionTimeline() {
                             "font-semibold",
                             transaction.type === "income"
                               ? "text-success"
-                              : "text-destructive"
+                              : "text-destructive",
                           )}
                         >
                           {transaction.type === "income" ? "+" : "-"}$

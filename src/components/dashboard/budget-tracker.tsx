@@ -104,7 +104,7 @@ export function BudgetTracker() {
                     <div
                       className={cn(
                         "w-6 h-6 rounded-full flex items-center justify-center text-white",
-                        budget.color
+                        budget.color,
                       )}
                     >
                       {budget.icon}
@@ -129,7 +129,7 @@ export function BudgetTracker() {
                     "h-2",
                     isOverBudget
                       ? "text-destructive"
-                      : budget.color.replace("bg-", "bg-")
+                      : budget.color.replace("bg-", "bg-"),
                   )}
                 />
               </div>

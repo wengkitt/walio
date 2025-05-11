@@ -70,7 +70,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn(
         "fixed top-0 left-0 z-20 h-full glass-panel border-r border-border",
-        "flex flex-col py-6 overflow-hidden"
+        "flex flex-col py-6 overflow-hidden",
       )}
     >
       <div className="flex items-center justify-between px-4 mb-8">
@@ -126,14 +126,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 isActive
                   ? "bg-secondary text-primary"
                   : "text-muted-foreground",
-                "relative"
+                "relative",
               )}
             >
               <div
                 className={cn(
                   "flex items-center justify-center",
                   isActive && "icon-glow",
-                  collapsed ? "mx-auto" : "mr-3"
+                  collapsed ? "mx-auto" : "mr-3",
                 )}
               >
                 {item.icon}
@@ -142,7 +142,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 <span
                   className={cn(
                     "truncate transition-all",
-                    isActive && "text-glow"
+                    isActive && "text-glow",
                   )}
                 >
                   {item.label}

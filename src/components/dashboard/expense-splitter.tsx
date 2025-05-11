@@ -156,7 +156,7 @@ export function ExpenseSplitter() {
                               ? "text-success"
                               : member.balance < 0
                                 ? "text-destructive"
-                                : ""
+                                : "",
                           )}
                         >
                           {member.balance > 0 ? "+" : ""}$

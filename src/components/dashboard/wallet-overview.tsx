@@ -105,7 +105,7 @@ export function WalletOverview() {
               <div
                 className={cn(
                   "absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-20 blur-2xl",
-                  `bg-gradient-to-br ${wallet.color}`
+                  `bg-gradient-to-br ${wallet.color}`,
                 )}
               />
 
@@ -114,7 +114,7 @@ export function WalletOverview() {
                   <div
                     className={cn(
                       "w-10 h-10 rounded-full flex items-center justify-center",
-                      `bg-gradient-to-r ${wallet.color}`
+                      `bg-gradient-to-r ${wallet.color}`,
                     )}
                   >
                     <CreditCard className="h-5 w-5 text-white" />
@@ -154,7 +154,7 @@ export function WalletOverview() {
                       "flex items-center px-2 py-1 rounded-full text-xs font-medium",
                       wallet.positiveChange
                         ? "bg-success/20 text-success"
-                        : "bg-destructive/20 text-destructive"
+                        : "bg-destructive/20 text-destructive",
                     )}
                   >
                     {wallet.positiveChange ? (

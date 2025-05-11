@@ -17,7 +17,7 @@ const progressVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 export interface ProgressProps

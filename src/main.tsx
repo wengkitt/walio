@@ -30,6 +30,6 @@ if (!rootElement.innerHTML) {
         </AnimatePresence>
         <Toaster position="top-right" />
       </ThemeProvider>
-    </StrictMode>
+    </StrictMode>,
   );
 }
