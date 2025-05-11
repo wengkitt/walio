@@ -8,87 +8,151 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from "@tanstack/react-router";
+
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as IndexImport } from "./routes/index";
+import { Route as ProtectedLayoutImport } from "./routes/protected/_layout";
+import { Route as ProtectedLayoutIndexImport } from "./routes/protected/_layout.index";
+
+// Create Virtual Routes
+
+const ProtectedImport = createFileRoute("/protected")();
 
 // Create/Update Routes
 
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+const ProtectedRoute = ProtectedImport.update({
+  id: "/protected",
+  path: "/protected",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const ProtectedLayoutRoute = ProtectedLayoutImport.update({
+  id: "/_layout",
+  getParentRoute: () => ProtectedRoute,
+} as any);
+
+const ProtectedLayoutIndexRoute = ProtectedLayoutIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => ProtectedLayoutRoute,
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/protected": {
+      id: "/protected";
+      path: "/protected";
+      fullPath: "/protected";
+      preLoaderRoute: typeof ProtectedImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/protected/_layout": {
+      id: "/protected/_layout";
+      path: "/protected";
+      fullPath: "/protected";
+      preLoaderRoute: typeof ProtectedLayoutImport;
+      parentRoute: typeof ProtectedRoute;
+    };
+    "/protected/_layout/": {
+      id: "/protected/_layout/";
+      path: "/";
+      fullPath: "/protected/";
+      preLoaderRoute: typeof ProtectedLayoutIndexImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
   }
 }
 
 // Create and export the route tree
 
+interface ProtectedLayoutRouteChildren {
+  ProtectedLayoutIndexRoute: typeof ProtectedLayoutIndexRoute;
+}
+
+const ProtectedLayoutRouteChildren: ProtectedLayoutRouteChildren = {
+  ProtectedLayoutIndexRoute: ProtectedLayoutIndexRoute,
+};
+
+const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
+  ProtectedLayoutRouteChildren
+);
+
+interface ProtectedRouteChildren {
+  ProtectedLayoutRoute: typeof ProtectedLayoutRouteWithChildren;
+}
+
+const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedLayoutRoute: ProtectedLayoutRouteWithChildren,
+};
+
+const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
+  ProtectedRouteChildren
+);
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  "/": typeof IndexRoute;
+  "/protected": typeof ProtectedLayoutRouteWithChildren;
+  "/protected/": typeof ProtectedLayoutIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  "/": typeof IndexRoute;
+  "/protected": typeof ProtectedLayoutIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/protected": typeof ProtectedRouteWithChildren;
+  "/protected/_layout": typeof ProtectedLayoutRouteWithChildren;
+  "/protected/_layout/": typeof ProtectedLayoutIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/protected" | "/protected/";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/protected";
+  id:
+    | "__root__"
+    | "/"
+    | "/protected"
+    | "/protected/_layout"
+    | "/protected/_layout/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  IndexRoute: typeof IndexRoute;
+  ProtectedRoute: typeof ProtectedRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-}
+  ProtectedRoute: ProtectedRouteWithChildren,
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -97,14 +161,28 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/protected"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/about": {
-      "filePath": "about.tsx"
+    "/protected": {
+      "filePath": "protected",
+      "children": [
+        "/protected/_layout"
+      ]
+    },
+    "/protected/_layout": {
+      "filePath": "protected/_layout.tsx",
+      "parent": "/protected",
+      "children": [
+        "/protected/_layout/"
+      ]
+    },
+    "/protected/_layout/": {
+      "filePath": "protected/_layout.index.tsx",
+      "parent": "/protected/_layout"
     }
   }
 }
