@@ -19,17 +19,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-
-export const Route = createFileRoute("/_layout/sign-up")({
-  component: SignUpPage,
-});
 
 // Define form validation schema
 const signUpSchema = z
@@ -85,7 +81,7 @@ function SignUpPage() {
       toast.success("Account created successfully!");
 
       // Navigate to dashboard after successful signup
-      navigate({ to: "/protected" });
+      navigate("/protected");
     } catch (error) {
       console.error("Sign up error:", error);
       toast.error("Failed to create account. Please try again.");
@@ -109,7 +105,7 @@ function SignUpPage() {
                 Create an account
               </CardTitle>
               <CardDescription>
-                Enter your information to get started with Walio
+                Sign up for Walio to manage your finances
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -123,9 +119,13 @@ function SignUpPage() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
+                        <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" {...field} />
+                          <Input
+                            placeholder="John Doe"
+                            {...field}
+                            autoComplete="name"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -143,6 +143,7 @@ function SignUpPage() {
                             type="email"
                             placeholder="john.doe@example.com"
                             {...field}
+                            autoComplete="email"
                           />
                         </FormControl>
                         <FormMessage />
@@ -160,8 +161,9 @@ function SignUpPage() {
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder="••••••••"
+                              placeholder="Create a password"
                               {...field}
+                              autoComplete="new-password"
                             />
                             <Button
                               type="button"
@@ -178,9 +180,9 @@ function SignUpPage() {
                             </Button>
                           </div>
                         </FormControl>
-                        <FormDescription>
-                          At least 8 characters with uppercase, lowercase, and a
-                          number
+                        <FormDescription className="text-xs">
+                          Must be at least 8 characters with uppercase,
+                          lowercase and number
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -197,8 +199,9 @@ function SignUpPage() {
                           <div className="relative">
                             <Input
                               type={showConfirmPassword ? "text" : "password"}
-                              placeholder="••••••••"
+                              placeholder="Confirm your password"
                               {...field}
+                              autoComplete="new-password"
                             />
                             <Button
                               type="button"
@@ -222,13 +225,17 @@ function SignUpPage() {
                     )}
                   />
 
-                  <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Button
+                    type="submit"
+                    className="w-full mt-6"
+                    disabled={isLoading}
+                  >
                     {isLoading ? "Creating account..." : "Create Account"}
                   </Button>
                 </form>
               </Form>
             </CardContent>
-            <CardFooter className="flex flex-col space-y-4 border-t pt-6">
+            <CardFooter className="flex justify-center border-t pt-6">
               <div className="text-center text-sm">
                 Already have an account?{" "}
                 <Link to="/sign-in" className="text-primary hover:underline">
@@ -252,3 +259,5 @@ function SignUpPage() {
     </>
   );
 }
+
+export default SignUpPage;

@@ -1,23 +1,16 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { ConvexReactClient } from "convex/react";
 import { AnimatePresence } from "motion/react";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router";
 import "./index.css";
-import { routeTree } from "./routeTree.gen";
-import { ConvexAuthProvider } from "@convex-dev/auth/react";
-import { ConvexReactClient } from "convex/react";
+import { router } from "./router";
 
-const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
@@ -34,7 +27,7 @@ if (!rootElement.innerHTML) {
             </ConvexAuthProvider>
           </QueryClientProvider>
         </AnimatePresence>
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
       </ThemeProvider>
     </StrictMode>
   );

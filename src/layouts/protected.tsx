@@ -1,13 +1,8 @@
 import { Sidebar } from "@/components/custom/sidebar";
 import { Topbar } from "@/components/custom/topbar";
 import { cn } from "@/lib/utils";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-
+import { Outlet } from "react-router";
 import { useState } from "react";
-
-export const Route = createFileRoute("/protected/_layout")({
-  component: ProtectedLayout,
-});
 
 function ProtectedLayout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -22,7 +17,7 @@ function ProtectedLayout() {
       <main
         className={cn(
           "flex-1 flex flex-col transition-all duration-300 ease-in-out",
-          isSidebarCollapsed ? "md:ml-0" : "md:ml-64"
+          isSidebarCollapsed ? "md:ml-0" : "md:ml-64",
         )}
       >
         <Topbar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
@@ -33,3 +28,5 @@ function ProtectedLayout() {
     </div>
   );
 }
+
+export default ProtectedLayout;

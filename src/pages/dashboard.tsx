@@ -2,12 +2,7 @@ import { BudgetTracker } from "@/components/dashboard/budget-tracker";
 import { ExpenseSplitter } from "@/components/dashboard/expense-splitter";
 import { TransactionTimeline } from "@/components/dashboard/transaction-timeline";
 import { WalletOverview } from "@/components/dashboard/wallet-overview";
-import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
-
-export const Route = createFileRoute("/protected/_layout/")({
-  component: Dashboard,
-});
 
 function Dashboard() {
   const containerVariants = {
@@ -56,3 +51,5 @@ function Dashboard() {
     </motion.div>
   );
 }
+
+export default Dashboard;

@@ -18,17 +18,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-
-export const Route = createFileRoute("/_layout/sign-in")({
-  component: SignInPage,
-});
 
 // Define form validation schema
 const signInSchema = z.object({
@@ -67,7 +63,7 @@ function SignInPage() {
 
       toast.success("Signed in successfully!");
       // Navigate to dashboard after successful login
-      navigate({ to: "/protected" });
+      navigate("/protected");
     } catch (error) {
       console.error("Sign in error:", error);
       toast.error("Failed to sign in. Please check your credentials.");
@@ -120,20 +116,12 @@ function SignInPage() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <div className="flex items-center justify-between">
-                          <FormLabel>Password</FormLabel>
-                          <Link
-                            to="/"
-                            className="text-xs text-primary hover:underline"
-                          >
-                            Forgot password?
-                          </Link>
-                        </div>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
                               type={showPassword ? "text" : "password"}
-                              placeholder="••••••••"
+                              placeholder="Enter your password"
                               {...field}
                             />
                             <Button
@@ -190,3 +178,5 @@ function SignInPage() {
     </>
   );
 }
+
+export default SignInPage;

@@ -9,7 +9,7 @@ import {
   Wallet,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -22,10 +22,8 @@ interface SidebarItem {
 }
 
 export function Sidebar({ collapsed }: SidebarProps) {
-  const router = useRouter();
-  const pathname = router.state.location.pathname;
-
-  console.log(pathname);
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const sidebarItems: SidebarItem[] = [
     {

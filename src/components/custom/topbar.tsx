@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { useRouter } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "react-router";
 import {
   Bell,
   Calendar,
@@ -29,8 +29,9 @@ interface TopbarProps {
 }
 
 export function Topbar({ collapsed, onToggle }: TopbarProps) {
-  const router = useRouter();
-  const pathname = router.state.location.pathname;
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
   const { signOut } = useAuthActions();
 
   // Map pathnames to page titles
@@ -121,7 +122,7 @@ export function Topbar({ collapsed, onToggle }: TopbarProps) {
                   try {
                     await signOut();
                     toast.success("Signed out successfully");
-                    router.navigate({ to: "/" });
+                    navigate("/");
                   } catch (error) {
                     console.error("Sign out error:", error);
                     toast.error("Failed to sign out");
