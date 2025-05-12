@@ -8,151 +8,191 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
-import { Route as ProtectedLayoutImport } from "./routes/protected/_layout";
-import { Route as ProtectedLayoutIndexImport } from "./routes/protected/_layout.index";
+import { Route as rootRoute } from './routes/__root'
+import { Route as SignUpImport } from './routes/sign-up'
+import { Route as SignInImport } from './routes/sign-in'
+import { Route as IndexImport } from './routes/index'
+import { Route as ProtectedLayoutImport } from './routes/protected/_layout'
+import { Route as ProtectedLayoutIndexImport } from './routes/protected/_layout.index'
 
 // Create Virtual Routes
 
-const ProtectedImport = createFileRoute("/protected")();
+const ProtectedImport = createFileRoute('/protected')()
 
 // Create/Update Routes
 
 const ProtectedRoute = ProtectedImport.update({
-  id: "/protected",
-  path: "/protected",
+  id: '/protected',
+  path: '/protected',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
+
+const SignUpRoute = SignUpImport.update({
+  id: '/sign-up',
+  path: '/sign-up',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignInRoute = SignInImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRoute,
-} as any);
+} as any)
 
 const ProtectedLayoutRoute = ProtectedLayoutImport.update({
-  id: "/_layout",
+  id: '/_layout',
   getParentRoute: () => ProtectedRoute,
-} as any);
+} as any)
 
 const ProtectedLayoutIndexRoute = ProtectedLayoutIndexImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => ProtectedLayoutRoute,
-} as any);
+} as any)
 
 // Populate the FileRoutesByPath interface
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/protected": {
-      id: "/protected";
-      path: "/protected";
-      fullPath: "/protected";
-      preLoaderRoute: typeof ProtectedImport;
-      parentRoute: typeof rootRoute;
-    };
-    "/protected/_layout": {
-      id: "/protected/_layout";
-      path: "/protected";
-      fullPath: "/protected";
-      preLoaderRoute: typeof ProtectedLayoutImport;
-      parentRoute: typeof ProtectedRoute;
-    };
-    "/protected/_layout/": {
-      id: "/protected/_layout/";
-      path: "/";
-      fullPath: "/protected/";
-      preLoaderRoute: typeof ProtectedLayoutIndexImport;
-      parentRoute: typeof ProtectedLayoutImport;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInImport
+      parentRoute: typeof rootRoute
+    }
+    '/sign-up': {
+      id: '/sign-up'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof SignUpImport
+      parentRoute: typeof rootRoute
+    }
+    '/protected': {
+      id: '/protected'
+      path: '/protected'
+      fullPath: '/protected'
+      preLoaderRoute: typeof ProtectedImport
+      parentRoute: typeof rootRoute
+    }
+    '/protected/_layout': {
+      id: '/protected/_layout'
+      path: '/protected'
+      fullPath: '/protected'
+      preLoaderRoute: typeof ProtectedLayoutImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/protected/_layout/': {
+      id: '/protected/_layout/'
+      path: '/'
+      fullPath: '/protected/'
+      preLoaderRoute: typeof ProtectedLayoutIndexImport
+      parentRoute: typeof ProtectedLayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface ProtectedLayoutRouteChildren {
-  ProtectedLayoutIndexRoute: typeof ProtectedLayoutIndexRoute;
+  ProtectedLayoutIndexRoute: typeof ProtectedLayoutIndexRoute
 }
 
 const ProtectedLayoutRouteChildren: ProtectedLayoutRouteChildren = {
   ProtectedLayoutIndexRoute: ProtectedLayoutIndexRoute,
-};
+}
 
 const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
   ProtectedLayoutRouteChildren,
-);
+)
 
 interface ProtectedRouteChildren {
-  ProtectedLayoutRoute: typeof ProtectedLayoutRouteWithChildren;
+  ProtectedLayoutRoute: typeof ProtectedLayoutRouteWithChildren
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedLayoutRoute: ProtectedLayoutRouteWithChildren,
-};
+}
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
   ProtectedRouteChildren,
-);
+)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/protected": typeof ProtectedLayoutRouteWithChildren;
-  "/protected/": typeof ProtectedLayoutIndexRoute;
+  '/': typeof IndexRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/protected': typeof ProtectedLayoutRouteWithChildren
+  '/protected/': typeof ProtectedLayoutIndexRoute
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/protected": typeof ProtectedLayoutIndexRoute;
+  '/': typeof IndexRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/protected': typeof ProtectedLayoutIndexRoute
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/protected": typeof ProtectedRouteWithChildren;
-  "/protected/_layout": typeof ProtectedLayoutRouteWithChildren;
-  "/protected/_layout/": typeof ProtectedLayoutIndexRoute;
+  __root__: typeof rootRoute
+  '/': typeof IndexRoute
+  '/sign-in': typeof SignInRoute
+  '/sign-up': typeof SignUpRoute
+  '/protected': typeof ProtectedRouteWithChildren
+  '/protected/_layout': typeof ProtectedLayoutRouteWithChildren
+  '/protected/_layout/': typeof ProtectedLayoutIndexRoute
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/protected" | "/protected/";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/protected";
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/sign-in' | '/sign-up' | '/protected' | '/protected/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/sign-in' | '/sign-up' | '/protected'
   id:
-    | "__root__"
-    | "/"
-    | "/protected"
-    | "/protected/_layout"
-    | "/protected/_layout/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/sign-in'
+    | '/sign-up'
+    | '/protected'
+    | '/protected/_layout'
+    | '/protected/_layout/'
+  fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  ProtectedRoute: typeof ProtectedRouteWithChildren;
+  IndexRoute: typeof IndexRoute
+  SignInRoute: typeof SignInRoute
+  SignUpRoute: typeof SignUpRoute
+  ProtectedRoute: typeof ProtectedRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SignInRoute: SignInRoute,
+  SignUpRoute: SignUpRoute,
   ProtectedRoute: ProtectedRouteWithChildren,
-};
+}
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
 /* ROUTE_MANIFEST_START
 {
@@ -161,11 +201,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/sign-in",
+        "/sign-up",
         "/protected"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/sign-in": {
+      "filePath": "sign-in.tsx"
+    },
+    "/sign-up": {
+      "filePath": "sign-up.tsx"
     },
     "/protected": {
       "filePath": "protected",
