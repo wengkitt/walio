@@ -1,18 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Link } from "react-router";
-import {
-  BarChart3,
-  CreditCard,
-  PieChart,
-  Users,
-  Wallet,
-  Mail,
-  ExternalLink,
-  Code,
-} from "lucide-react";
+import { BarChart3, PieChart, Users, Wallet } from "lucide-react";
 import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
+import { Link } from "react-router";
 
 function LandingPage() {
   const containerVariants = {
