@@ -1,8 +1,8 @@
-import { AuthGuard } from "@/components/auth/auth-guard";
 import { Sidebar } from "@/components/custom/sidebar";
 import { Topbar } from "@/components/custom/topbar";
 import { cn } from "@/lib/utils";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+
 import { useState } from "react";
 
 export const Route = createFileRoute("/protected/_layout")({
@@ -17,21 +17,19 @@ function ProtectedLayout() {
   };
 
   return (
-    <AuthGuard>
-      <div className="min-h-screen flex flex-col md:flex-row bg-background text-foreground">
-        <Sidebar collapsed={isSidebarCollapsed} />
-        <main
-          className={cn(
-            "flex-1 flex flex-col transition-all duration-300 ease-in-out",
-            isSidebarCollapsed ? "md:ml-0" : "md:ml-64"
-          )}
-        >
-          <Topbar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
-          <div className="flex-1 p-4 md:p-6 overflow-auto wolio-scrollbar">
-            <Outlet />
-          </div>
-        </main>
-      </div>
-    </AuthGuard>
+    <div className="min-h-screen flex flex-col md:flex-row bg-background text-foreground">
+      <Sidebar collapsed={isSidebarCollapsed} />
+      <main
+        className={cn(
+          "flex-1 flex flex-col transition-all duration-300 ease-in-out",
+          isSidebarCollapsed ? "md:ml-0" : "md:ml-64"
+        )}
+      >
+        <Topbar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
+        <div className="flex-1 p-4 md:p-6 overflow-auto wolio-scrollbar">
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 }
