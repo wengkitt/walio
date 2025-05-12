@@ -1,21 +1,18 @@
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
-  ChevronLeft,
-  ChevronRight,
   CreditCard,
   DollarSign,
   LayoutDashboard,
   PieChart,
   Settings,
   Users,
+  Wallet,
 } from "lucide-react";
 import { motion } from "motion/react";
 import { Link, useRouter } from "@tanstack/react-router";
 
 interface SidebarProps {
   collapsed: boolean;
-  onToggle: () => void;
 }
 
 interface SidebarItem {
@@ -24,7 +21,7 @@ interface SidebarItem {
   path: string;
 }
 
-export function Sidebar({ collapsed, onToggle }: SidebarProps) {
+export function Sidebar({ collapsed }: SidebarProps) {
   const router = useRouter();
   const pathname = router.state.location.pathname;
 
@@ -65,15 +62,16 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
   return (
     <motion.aside
-      initial={{ width: collapsed ? 80 : 256 }}
-      animate={{ width: collapsed ? 80 : 256 }}
+      initial={{ width: collapsed ? 0 : 256 }}
+      animate={{ width: collapsed ? 0 : 256 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={cn(
         "fixed top-0 left-0 z-20 h-full glass-panel border-r border-border",
         "flex flex-col py-6 overflow-hidden",
+        collapsed && "opacity-0"
       )}
     >
-      <div className="flex items-center justify-between px-4 mb-8">
+      <div className="flex items-center px-4 mb-8">
         {!collapsed && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -82,33 +80,10 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             transition={{ duration: 0.2 }}
             className="flex items-center"
           >
-            <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center mr-2">
-              <DollarSign className="h-5 w-5 text-primary icon-glow" />
-            </div>
+            <Wallet className="h-5 w-5 text-primary icon-glow mr-2" />
             <h1 className="text-xl font-semibold text-glow">Walio</h1>
           </motion.div>
         )}
-        {collapsed && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="mx-auto"
-          >
-            <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-              <DollarSign className="h-5 w-5 text-primary icon-glow" />
-            </div>
-          </motion.div>
-        )}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={onToggle}
-          className="text-muted-foreground hover:text-foreground"
-        >
-          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </Button>
       </div>
 
       <div className="flex-1 space-y-2 px-3">
@@ -126,14 +101,14 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 isActive
                   ? "bg-secondary text-primary"
                   : "text-muted-foreground",
-                "relative",
+                "relative"
               )}
             >
               <div
                 className={cn(
                   "flex items-center justify-center",
                   isActive && "icon-glow",
-                  collapsed ? "mx-auto" : "mr-3",
+                  collapsed ? "mx-auto" : "mr-3"
                 )}
               >
                 {item.icon}
@@ -142,7 +117,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                 <span
                   className={cn(
                     "truncate transition-all",
-                    isActive && "text-glow",
+                    isActive && "text-glow"
                   )}
                 >
                   {item.label}

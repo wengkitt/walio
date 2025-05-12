@@ -9,11 +9,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Calendar, Plus, Search, User } from "lucide-react";
+import {
+  Bell,
+  Calendar,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Plus,
+  Search,
+  User,
+} from "lucide-react";
 import { motion } from "motion/react";
 import { useRouter } from "@tanstack/react-router";
 
-export function Topbar() {
+interface TopbarProps {
+  collapsed: boolean;
+  onToggle: () => void;
+}
+
+export function Topbar({ collapsed, onToggle }: TopbarProps) {
   const router = useRouter();
   const pathname = router.state.location.pathname;
 
@@ -26,7 +39,6 @@ export function Topbar() {
     "/protected/split-expenses": "Split Expenses",
     "/protected/settings": "Settings",
   };
-  console.log(pathname);
   const currentPage = pageTitles[pathname] || "";
 
   return (
@@ -38,17 +50,17 @@ export function Topbar() {
     >
       <div className="flex items-center justify-between">
         <div className="flex-1 flex items-center space-x-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onToggle}
+            className="text-muted-foreground hover:text-foreground mr-2"
+          >
+            {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+          </Button>
           <h1 className="text-xl font-semibold hidden md:block">
             {currentPage}
           </h1>
-          <div className="relative hidden md:flex items-center max-w-sm w-full">
-            <Search className="absolute left-3 h-4 w-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="h-9 w-full rounded-full bg-secondary pl-9 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40"
-            />
-          </div>
         </div>
 
         <div className="flex items-center space-x-3">
