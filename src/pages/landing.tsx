@@ -1,8 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router";
-import { BarChart3, CreditCard, PieChart, Users, Wallet } from "lucide-react";
+import {
+  BarChart3,
+  CreditCard,
+  PieChart,
+  Users,
+  Wallet,
+  Mail,
+  ExternalLink,
+  Code,
+} from "lucide-react";
 import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 function LandingPage() {
   const containerVariants = {
@@ -90,7 +100,7 @@ function LandingPage() {
               variants={itemVariants}
               className="text-3xl font-bold mb-4"
             >
-              Powerful Features
+              Features
             </motion.h2>
             <motion.p
               variants={itemVariants}
@@ -194,6 +204,30 @@ function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Footer Section */}
+      <footer className="border-t border-border/40 py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-muted-foreground text-sm">
+              © {new Date().getFullYear()} Walio. All rights reserved.
+            </p>
+            <div className="flex items-center mt-4 md:mt-0">
+              <span className="text-muted-foreground text-sm flex items-center">
+                Made with <span className="text-red-500 mx-1">❤</span> by
+                <a
+                  href="https://github.com/wengkitt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline ml-1"
+                >
+                  Weng Kitt
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
