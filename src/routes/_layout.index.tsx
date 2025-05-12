@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BarChart3, CreditCard, PieChart, Users, Wallet } from "lucide-react";
 import { motion } from "motion/react";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_layout/")({
   component: LandingPage,
 });
 
@@ -33,20 +32,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Header/Navigation */}
-      <header className="glass-panel sticky top-0 z-50 border-b border-border/40">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Wallet className="h-5 w-5 text-primary icon-glow" />
-            <h1 className="text-xl font-bold text-glow">Walio</h1>
-          </div>
-          <div className="flex items-center">
-            <ModeToggle />
-          </div>
-        </div>
-      </header>
-
+    <>
       {/* Hero Section */}
       <section className="py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -237,7 +223,7 @@ function LandingPage() {
           </div>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 

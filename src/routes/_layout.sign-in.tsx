@@ -16,17 +16,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, DollarSign, Eye, EyeOff } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { toast } from "sonner";
+import { z } from "zod";
 
-export const Route = createFileRoute("/sign-in")({
+export const Route = createFileRoute("/_layout/sign-in")({
   component: SignInPage,
 });
 
@@ -68,20 +67,7 @@ function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Header */}
-      <header className="glass-panel sticky top-0 z-50 border-b border-border/40">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-              <DollarSign className="h-5 w-5 text-primary icon-glow" />
-            </div>
-            <h1 className="text-xl font-bold text-glow">Walio</h1>
-          </Link>
-          <ModeToggle />
-        </div>
-      </header>
-
+    <>
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center p-4 md:p-8">
         <motion.div
@@ -191,6 +177,6 @@ function SignInPage() {
           </div>
         </motion.div>
       </main>
-    </div>
+    </>
   );
 }
