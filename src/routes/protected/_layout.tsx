@@ -21,7 +21,7 @@ function ProtectedLayout() {
       <main
         className={cn(
           "flex-1 flex flex-col transition-all duration-300 ease-in-out",
-          isSidebarCollapsed ? "md:ml-0" : "md:ml-64"
+          isSidebarCollapsed ? "md:ml-0" : "md:ml-64",
         )}
       >
         <Topbar collapsed={isSidebarCollapsed} onToggle={toggleSidebar} />

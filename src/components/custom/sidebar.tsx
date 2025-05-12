@@ -68,7 +68,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
       className={cn(
         "fixed top-0 left-0 z-20 h-full glass-panel border-r border-border",
         "flex flex-col py-6 overflow-hidden",
-        collapsed && "opacity-0"
+        collapsed && "opacity-0",
       )}
     >
       <div className="flex items-center px-4 mb-8">
@@ -101,14 +101,14 @@ export function Sidebar({ collapsed }: SidebarProps) {
                 isActive
                   ? "bg-secondary text-primary"
                   : "text-muted-foreground",
-                "relative"
+                "relative",
               )}
             >
               <div
                 className={cn(
                   "flex items-center justify-center",
                   isActive && "icon-glow",
-                  collapsed ? "mx-auto" : "mr-3"
+                  collapsed ? "mx-auto" : "mr-3",
                 )}
               >
                 {item.icon}
@@ -117,7 +117,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
                 <span
                   className={cn(
                     "truncate transition-all",
-                    isActive && "text-glow"
+                    isActive && "text-glow",
                   )}
                 >
                   {item.label}
