@@ -105,7 +105,7 @@ function LandingPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6"
           >
             {/* Feature Cards */}
             <motion.div variants={itemVariants}>
@@ -163,21 +163,6 @@ function LandingPage() {
                   <p className="text-muted-foreground">
                     Get personalized insights and analytics to improve your
                     financial habits.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <Card className="h-full border-gradient">
-                <CardContent className="p-6">
-                  <div className="mb-4 bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                    <CreditCard className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="mb-2">Multiple Accounts</CardTitle>
-                  <p className="text-muted-foreground">
-                    Manage all your accounts in one place for a complete
-                    financial overview.
                   </p>
                 </CardContent>
               </Card>

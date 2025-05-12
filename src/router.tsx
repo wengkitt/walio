@@ -1,6 +1,7 @@
 import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
+import { LoadingSpinner } from "./components/custom/loading-spinner";
 
 // Layout components
 import AuthLayout from "./layouts/auth";
@@ -21,7 +22,13 @@ export const router = createBrowserRouter([
     children: [
       {
         element: (
-          <Suspense fallback={<AuthLoading>Loading...</AuthLoading>}>
+          <Suspense
+            fallback={
+              <AuthLoading>
+                <LoadingSpinner centered text="Checking authentication..." />
+              </AuthLoading>
+            }
+          >
             <Authenticated>
               <Navigate to="/protected" replace />
             </Authenticated>
@@ -34,7 +41,9 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<LoadingSpinner centered text="Loading page..." />}
+              >
                 <LandingPage />
               </Suspense>
             ),
@@ -42,7 +51,9 @@ export const router = createBrowserRouter([
           {
             path: "sign-in",
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<LoadingSpinner centered text="Loading sign in..." />}
+              >
                 <SignInPage />
               </Suspense>
             ),
@@ -50,7 +61,9 @@ export const router = createBrowserRouter([
           {
             path: "sign-up",
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={<LoadingSpinner centered text="Loading sign up..." />}
+              >
                 <SignUpPage />
               </Suspense>
             ),
@@ -60,7 +73,13 @@ export const router = createBrowserRouter([
       {
         path: "protected",
         element: (
-          <Suspense fallback={<AuthLoading>Loading...</AuthLoading>}>
+          <Suspense
+            fallback={
+              <AuthLoading>
+                <LoadingSpinner centered text="Checking authentication..." />
+              </AuthLoading>
+            }
+          >
             <Authenticated>
               <ProtectedLayout />
             </Authenticated>
@@ -73,7 +92,11 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: (
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense
+                fallback={
+                  <LoadingSpinner centered text="Loading dashboard..." />
+                }
+              >
                 <DashboardPage />
               </Suspense>
             ),
