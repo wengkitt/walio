@@ -9,17 +9,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthActions } from "@convex-dev/auth/react";
+import { useRouter } from "@tanstack/react-router";
 import {
   Bell,
   Calendar,
+  LogOut,
   PanelLeftClose,
   PanelLeftOpen,
   Plus,
-  Search,
   User,
 } from "lucide-react";
 import { motion } from "motion/react";
-import { useRouter } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 interface TopbarProps {
   collapsed: boolean;
@@ -29,6 +31,7 @@ interface TopbarProps {
 export function Topbar({ collapsed, onToggle }: TopbarProps) {
   const router = useRouter();
   const pathname = router.state.location.pathname;
+  const { signOut } = useAuthActions();
 
   // Map pathnames to page titles
   const pageTitles: Record<string, string> = {
@@ -113,7 +116,21 @@ export function Topbar({ collapsed, onToggle }: TopbarProps) {
               <DropdownMenuItem>Wallets</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Log out</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={async () => {
+                  try {
+                    await signOut();
+                    toast.success("Signed out successfully");
+                    router.navigate({ to: "/" });
+                  } catch (error) {
+                    console.error("Sign out error:", error);
+                    toast.error("Failed to sign out");
+                  }
+                }}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

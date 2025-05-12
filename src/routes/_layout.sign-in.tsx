@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
@@ -41,6 +42,7 @@ function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { signIn } = useAuthActions();
 
   // Initialize form
   const form = useForm<SignInFormValues>({
@@ -52,18 +54,26 @@ function SignInPage() {
   });
 
   // Form submission handler
-  function onSubmit(values: SignInFormValues) {
+  async function onSubmit(values: SignInFormValues) {
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      toast.success("Signed in successfully!");
-      setIsLoading(false);
+    try {
+      // Use Convex Auth to sign in
+      await signIn("password", {
+        email: values.email,
+        password: values.password,
+        flow: "signIn",
+      });
 
+      toast.success("Signed in successfully!");
       // Navigate to dashboard after successful login
       navigate({ to: "/protected" });
-    }, 1500);
+    } catch (error) {
+      console.error("Sign in error:", error);
+      toast.error("Failed to sign in. Please check your credentials.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (

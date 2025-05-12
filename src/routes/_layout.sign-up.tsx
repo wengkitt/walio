@@ -17,8 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
@@ -54,6 +55,8 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { signIn } = useAuthActions();
 
   // Initialize form
   const form = useForm<SignUpFormValues>({
@@ -67,19 +70,27 @@ function SignUpPage() {
   });
 
   // Form submission handler
-  function onSubmit(values: SignUpFormValues) {
+  async function onSubmit(values: SignUpFormValues) {
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log(values);
-      toast.success("Account created successfully! Redirecting to login...");
-      setIsLoading(false);
+    try {
+      // Use Convex Auth to sign up
+      await signIn("password", {
+        email: values.email,
+        password: values.password,
+        name: values.name,
+        flow: "signUp",
+      });
 
-      // In a real app, you would redirect to login or dashboard after successful signup
-      // For now, we'll just reset the form
-      form.reset();
-    }, 1500);
+      toast.success("Account created successfully!");
+
+      // Navigate to dashboard after successful signup
+      navigate({ to: "/protected" });
+    } catch (error) {
+      console.error("Sign up error:", error);
+      toast.error("Failed to create account. Please try again.");
+      setIsLoading(false);
+    }
   }
 
   return (

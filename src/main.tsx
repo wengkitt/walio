@@ -7,6 +7,8 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
+import { ConvexAuthProvider } from "@convex-dev/auth/react";
+import { ConvexReactClient } from "convex/react";
 
 const router = createRouter({ routeTree });
 const queryClient = new QueryClient();
@@ -17,6 +19,8 @@ declare module "@tanstack/react-router" {
   }
 }
 
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
@@ -25,11 +29,13 @@ if (!rootElement.innerHTML) {
       <ThemeProvider>
         <AnimatePresence mode="wait">
           <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
+            <ConvexAuthProvider client={convex}>
+              <RouterProvider router={router} />
+            </ConvexAuthProvider>
           </QueryClientProvider>
         </AnimatePresence>
         <Toaster position="top-right" />
       </ThemeProvider>
-    </StrictMode>,
+    </StrictMode>
   );
 }
