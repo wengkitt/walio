@@ -13,6 +13,11 @@ const LandingPage = lazy(() => import("./pages/landing"));
 const SignInPage = lazy(() => import("./pages/sign-in"));
 const SignUpPage = lazy(() => import("./pages/sign-up"));
 const DashboardPage = lazy(() => import("./pages/dashboard"));
+const WalletsPage = lazy(() => import("./pages/wallets"));
+const BudgetsPage = lazy(() => import("./pages/budgets"));
+const TransactionsPage = lazy(() => import("./pages/transactions"));
+const SplitExpensesPage = lazy(() => import("./pages/split-expenses"));
+const SettingsPage = lazy(() => import("./pages/settings"));
 
 // Router configuration
 export const router = createBrowserRouter([
@@ -101,7 +106,62 @@ export const router = createBrowserRouter([
               </Suspense>
             ),
           },
-          // Add other protected routes here as needed
+          {
+            path: "wallets",
+            element: (
+              <Suspense
+                fallback={<LoadingSpinner centered text="Loading wallets..." />}
+              >
+                <WalletsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "budgets",
+            element: (
+              <Suspense
+                fallback={<LoadingSpinner centered text="Loading budgets..." />}
+              >
+                <BudgetsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "transactions",
+            element: (
+              <Suspense
+                fallback={
+                  <LoadingSpinner centered text="Loading transactions..." />
+                }
+              >
+                <TransactionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "split-expenses",
+            element: (
+              <Suspense
+                fallback={
+                  <LoadingSpinner centered text="Loading split expenses..." />
+                }
+              >
+                <SplitExpensesPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "settings",
+            element: (
+              <Suspense
+                fallback={
+                  <LoadingSpinner centered text="Loading settings..." />
+                }
+              >
+                <SettingsPage />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],

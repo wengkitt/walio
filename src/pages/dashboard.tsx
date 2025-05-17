@@ -4,7 +4,7 @@ import { TransactionTimeline } from "@/components/dashboard/transaction-timeline
 import { WalletOverview } from "@/components/dashboard/wallet-overview";
 import { motion } from "motion/react";
 
-function Dashboard() {
+function DashboardPage() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -52,4 +52,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardPage;
